@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://0bjf3kkjykc4"]
+
+[ext_resource type="Script" path="res://scripts/login.gd" id="1_u8luw"]
+
+[node name="login" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25098, 0.345098, 0.47451, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 470.0
+offset_top = 220.0
+offset_right = 794.0
+offset_bottom = 502.0
+
+[node name="username" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 305.0
+offset_right = 721.0
+offset_bottom = 342.0
+placeholder_text = "user"
+script = ExtResource("1_u8luw")
+
+[node name="password" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 542.0
+offset_top = 357.0
+offset_right = 722.0
+offset_bottom = 394.0
+secret = true
+script = ExtResource("1_u8luw")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 587.0
+offset_top = 437.0
+offset_right = 683.0
+offset_bottom = 471.0
+text = "login"
+script = ExtResource("1_u8luw")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 470.0
+offset_top = 220.0
+offset_right = 794.0
+offset_bottom = 304.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Wyd2D"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[connection signal="gui_input" from="username" to="username" method="_on_gui_input"]
+[connection signal="gui_input" from="password" to="password" method="_on_gui_input"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

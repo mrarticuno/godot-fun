@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw3mqh6r5qurh"]
+
+[ext_resource type="VideoStream" path="res://assets/videos/ops.ogv" id="1_4tsae"]
+
+[node name="main" type="Node2D"]
+
+[node name="RickRoll" type="VideoStreamPlayer" parent="."]
+offset_left = -312.0
+offset_top = -284.0
+offset_right = 1608.0
+offset_bottom = 804.0
+stream = ExtResource("1_4tsae")
+autoplay = true
