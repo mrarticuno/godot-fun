@@ -41,6 +41,7 @@ offset_left = 542.0
 offset_top = 357.0
 offset_right = 722.0
 offset_bottom = 394.0
+placeholder_text = "password"
 secret = true
 script = ExtResource("1_u8luw")
 
