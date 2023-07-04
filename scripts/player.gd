@@ -3,8 +3,10 @@ extends CharacterBody2D
 @onready var animated_sprite = get_node("AnimatedSprite2D")
 
 const SPEED = 400
-const JUMP_SPEED = 200
-const GRAVITY = 200
+const JUMP_SPEED = 400
+const GRAVITY = 400
+
+var fallMultiplier = 1
 
 func _physics_process(delta: float) -> void:
 	handle_input(delta)
@@ -32,15 +34,22 @@ func handle_input(delta: float) -> void:
 		velocity.x -= SPEED
 		is_moving = true
 
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_pressed("jump") and not is_playing_attack():
 		if is_on_floor():
 			velocity.y -= JUMP_SPEED
 		animated_sprite.play("jump")
 
 	if not is_moving and not is_playing_attack():
 		play_idle_or_falling_animation()
-
-	velocity.y += GRAVITY * delta
+	
+	if velocity.y == 0:
+		fallMultiplier = 2
+	
+	if velocity.y > 0 and fallMultiplier < 4:
+		fallMultiplier += 0.25
+		print(velocity.y)
+	
+	velocity.y += fallMultiplier * GRAVITY * delta
 
 func play_attack_animation(attack_name: String) -> void:
 	animated_sprite.play(attack_name)
@@ -48,7 +57,7 @@ func play_attack_animation(attack_name: String) -> void:
 
 func play_running_animation(is_flipped: bool) -> void:
 	animated_sprite.flip_h = is_flipped
-	if is_on_floor_only():
+	if is_on_floor() and not is_playing_attack():
 		animated_sprite.play("run")
 
 func play_idle_or_falling_animation() -> void:
@@ -61,8 +70,14 @@ func play_idle_or_falling_animation() -> void:
 			animated_sprite.play("fall")
 
 func is_playing_attack() -> bool:
+	var current_frame = animated_sprite.get_frame()
+	var current_progress = animated_sprite.get_frame_progress()
+	if animated_sprite.animation == "attack" or animated_sprite.animation == "double_attack":
+		if current_frame > 0 and current_progress == 1:
+			return false
+		return true
 	return false
-	# return (animated_sprite.animation == "attack" or animated_sprite.animation == "double_attack") and animated_sprite.frame < 7
 
-func apply_movement(delta: float) -> void:
+func apply_movement(_delta: float) -> void:
 	move_and_slide()
+

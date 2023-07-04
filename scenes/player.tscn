@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cap32c30fmu67"]
+[gd_scene load_steps=66 format=3 uid="uid://cap32c30fmu67"]
 
 [ext_resource type="Texture2D" uid="uid://bfidme00lft65" path="res://assets/sprites/_Attack.png" id="1_5tr6q"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qbohm"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://djfbj85u6exqa" path="res://assets/sprites/_Jump.png" id="6_i23ok"]
 [ext_resource type="Texture2D" uid="uid://cngeopsoqut4d" path="res://assets/sprites/_Run.png" id="7_4ywlr"]
 [ext_resource type="Texture2D" uid="uid://berca4b308spx" path="res://assets/sprites/_TurnAround.png" id="8_ap5hh"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="10_ynr5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xndan"]
 size = Vector2(20, 40)
@@ -240,7 +241,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m6he5")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 7.0
 }, {
@@ -275,7 +276,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nt5mh")
 }],
-"loop": true,
+"loop": false,
 "name": &"double_attack",
 "speed": 7.0
 }, {
@@ -310,7 +311,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3onpw")
 }],
-"loop": true,
+"loop": false,
 "name": &"double_attack_static",
 "speed": 7.0
 }, {
@@ -430,6 +431,7 @@ animations = [{
 [node name="player" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(-80, -64)
 script = ExtResource("1_qbohm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -440,6 +442,11 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 position = Vector2(96, 40)
 sprite_frames = SubResource("SpriteFrames_inds5")
-animation = &"turn"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.582514
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+script = ExtResource("10_ynr5y")
